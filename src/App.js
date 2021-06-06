@@ -4,12 +4,14 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function App() {
+  const [allUser, setAllUser] = useState([]); 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [deleted, setDeleted] = useState(false);
 
   useEffect(() => {
     getAllUser();
-  }, [])
+  }, [deleted, allUser])
 
   console.log('I am from use effect')
 
@@ -28,7 +30,7 @@ export default function App() {
   const getAllUser = async () => {
     const getData = await axios.get('/getusers')
       .then(user => {
-        console.log(user.data) 
+        setAllUser(user.data) 
       })
   }
 
@@ -50,6 +52,15 @@ export default function App() {
       .then(res => console.log(res))
 
   };
+
+  //delet function code
+  const deleteFunc = async (item) => {
+    console.log(item)
+
+    await axios.delete(`/userDelete/${item}`)
+    .then(res => setDeleted(true))
+  }
+
   return (
     <div className="container mt-4">
       <div className="row">
@@ -90,6 +101,28 @@ export default function App() {
       </div>
       <div className="row mt-5 p-3">
       All users
+      <table className="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Options</th>
+          </tr>
+        </thead>
+        <tbody>
+          {allUser.map( xx => (
+            <tr key={xx._id}>
+             <td>{xx.name}</td>
+          <td>{xx.email}</td>
+          <td>
+          <button className="btn btn-info">Edit</button>
+          <button onClick={()=>deleteFunc(xx._id)} className="btn btn-danger">Delete</button>
+            </td> 
+            </tr>
+          ))}
+        </tbody>
+      </table>
    </div>
 </div>
   );
