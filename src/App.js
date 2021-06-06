@@ -7,11 +7,12 @@ export default function App() {
   const [allUser, setAllUser] = useState([]); 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [deleted, setDeleted] = useState(false);
+  const [deleted, setDeleted] = useState('');
+  const [update, setUpdate] = useState('');
 
   useEffect(() => {
     getAllUser();
-  }, [deleted, allUser])
+  }, [deleted, update])
 
   console.log('I am from use effect')
 
@@ -49,7 +50,7 @@ export default function App() {
     }
 
     const sendData = await axios.post('/register', data, config)
-      .then(res => console.log(res))
+      .then(res => setUpdate(res.data))
 
   };
 
