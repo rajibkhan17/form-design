@@ -1,5 +1,5 @@
 import React from 'react'
-
+import Footer from '../footer/Footer';
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import closeButton from "react-bootstrap/CloseButton"
@@ -248,6 +248,7 @@ const Home = () => {
           </Modal.Footer>
         </Modal>
       </div>
+      <Footer /> 
       </>
     );
 }
