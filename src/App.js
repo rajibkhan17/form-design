@@ -1,130 +1,20 @@
 import "./styles.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { BrowserRouter as Router, Switch,  Route } from 'react-router-dom'
+import About from "./components/about/About";
+import Home from "./components/Home/Home";
 
 export default function App() {
-  const [allUser, setAllUser] = useState([]); 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [deleted, setDeleted] = useState('');
-  const [update, setUpdate] = useState('');
-
-  useEffect(() => {
-    getAllUser();
-  }, [deleted, update])
-
-  console.log('I am from use effect')
-
-
-  
-  const onChangeData = (data) => {
-    setName(data);
-  };
-  const onChangeData2 = (data) => {
-    setEmail(data);
-  };
-
-
-
-
-  const getAllUser = async () => {
-    const getData = await axios.get('/getusers')
-      .then(user => {
-        setAllUser(user.data) 
-      })
-  }
-
-  const submitData = async (e) => {
-    e.preventDefault();
-
-    const data = {
-       name : name, 
-      email : email
-    }
-
-    const config = {
-      headers: {
-        'Content-Type' : 'application/json'
-      }
-    }
-
-    const sendData = await axios.post('/register', data, config)
-      .then(res => setUpdate(res.data))
-
-  };
-
-  //delet function code
-  const deleteFunc = async (item) => {
-    console.log(item)
-
-    await axios.delete(`/userDelete/${item}`)
-    .then(res => setDeleted(true))
-  }
-
-  return (
-    <div className="container mt-4">
-      <div className="row">
-        <div className="col-md-6 bgs text-center p-3">
-          <h2>Section one</h2>
-          <p>
-            some important information add your profile then join our community
-          </p>
-        </div>
-        <div className="col-md-6 bg text-center p-3">
-          <h2>Register form</h2>
-          <form className="dd" onSubmit={submitData}>
-            <div className="form-group">
-              <label className="left">Name</label>
-              <input
-                className="form-control"
-                type="text"
-                name="name"
-                onChange={(e) => onChangeData(e.target.value)}
-                value={name}
-                placeholder="name"
-              />
-            </div>
-            <div className="form-group">
-              <label className="left">Email</label>
-              <input
-                className="form-control"
-                type="email"
-                name="name"
-                onChange={(e) => onChangeData2(e.target.value)}
-                placeholder="Email"
-                value={email}
-              />
-            </div>
-            <button type="submit" className="btn btn-primary mt-2">Register</button>
-          </form>
-        </div>
-      </div>
-      <div className="row mt-5 p-3">
-      All users
-      <table className="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Options</th>
-          </tr>
-        </thead>
-        <tbody>
-          {allUser.map( xx => (
-            <tr key={xx._id}>
-             <td>{xx.name}</td>
-          <td>{xx.email}</td>
-          <td>
-          <button className="btn btn-info">Edit</button>
-          <button onClick={()=>deleteFunc(xx._id)} className="btn btn-danger">Delete</button>
-            </td> 
-            </tr>
-          ))}
-        </tbody>
-      </table>
-   </div>
-</div>
-  );
+return(
+  <Router>
+    <Switch>
+      <Route path="/">
+        <Home />
+      </Route>
+      <Route path="/about">
+        <About />
+      </Route>
+    </Switch>
+  </Router>
+  )
 }
