@@ -9,9 +9,8 @@ const Register = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [address, setAddress] = useState('')
-
-
-
+    const [gender, setGender] = useState('')
+    let genders = ["Male", "Female", "Guy"]
    //name 
     const onChangeData = (data) => {
         setName(data);
@@ -95,26 +94,13 @@ const Register = () => {
                 </div>
 
                 <div className="form-group">
-                    <label>Genter: </label><br />
-
-                    <Form.Check
-                        type="radio"
-                        label="Male"
-                        name="formHorizontalRadios"
-                        id="formHorizontalRadios1"
-                        />
-                        <Form.Check
-                        type="radio"
-                        label="Female"
-                        name="formHorizontalRadios"
-                        id="formHorizontalRadios2"
-                        />
-                        <Form.Check
-                        type="radio"
-                        label="Not wish to answer"
-                        name="formHorizontalRadios"
-                        id="formHorizontalRadios3"
-                        />
+                    <label>Gender: </label><br />
+                    {genders.map(result => ( <Form.Check
+                    type="radio"
+                    label={result}
+                    onChange={e => setGender(e.target.value)}
+                        value={result}
+                    />))}
                 </div>
                 <br />
                 <div className="form-group">
