@@ -1,8 +1,34 @@
 import React from 'react'
 import { Form } from 'react-bootstrap'
 import NavbarMain from '../Navbar/Navbar'
+import { useState } from 'react'
 
 const Register = () => {
+
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [address, setAddress] = useState('')
+
+
+
+   //name 
+    const onChangeData = (data) => {
+        setName(data);
+    }
+  //email
+  const onChangeData3 = (data) => {
+    setEmail(data);
+}
+  //password
+  const onChangeData4 = (data) => {
+      setPassword(data);
+  }
+
+  //address
+  const onChangeData5 = (data) => {
+    setAddress(data);
+}
 
     return (
         <>
@@ -14,22 +40,48 @@ const Register = () => {
             <form>
                 <div className="form-group">
                     <labe for="names">Name</labe>
-                    <input className="form-control" type="text" id="names" name="name" value="" placeholder="Enter your name" />
+                    <input className="form-control" 
+                    type="text" 
+                    id="names" 
+                    name="name"
+                    onChange={(e) => onChangeData(e.target.value)}
+                    value={name}
+                    placeholder="Enter your name" 
+                    />
                 </div>
 
                 <div className="form-group">
                     <label>Email</label>
-                    <input className="form-control" type="email" name="email" value="" placeholder="Enter your Email" />
+                    <input className="form-control" 
+                    type="email" 
+                    name="email" 
+                    onChange={(e) => onChangeData3(e.target.value)}
+                    value={email}
+                    placeholder="Enter your Email" 
+                    />
                 </div>
 
                 <div className="form-group">
                     <label for="password">Password</label>
-                    <input className="form-control" id="password" type="password" name="email" value="" placeholder="Enter your Password" />
+                    <input className="form-control" 
+                    id="password" 
+                    type="password" 
+                    name="password" 
+                    onChange={(e) => onChangeData4(e.target.value)}
+                    value={password}
+                    placeholder="Enter your Password" 
+                    />
                 </div>
 
                 <div className="form-group">
                     <label>Address</label>
-                    <input className="form-control" type="text" name="address" value="" placeholder="Enter your address" />
+                    <input className="form-control" 
+                    type="text" 
+                    name="address" 
+                    onChange={(e) => onChangeData5(e.target.Value)}
+                    value={address}
+                    placeholder="Enter your address" 
+                    />
                 </div>
 
                 <div className="form-group">
